@@ -18,15 +18,44 @@ struct BUS{
     string busFault; // bus fault
     string regNumber;  //registration number
 
-    public:
-    bool isFaulty = true;
-    bool isNew = true;
-
     /*Operation*/
+    //Getters
+    public:
+    string GetBusType(){
+        return this->busType;
+    }
+
+    string GetBusMake(){
+        return this->busMake;
+    }
+
+    string GetBusFault(){
+        return this->busFault;
+    }
+
+    string GetRegNumber(){
+        return this->regNumber;
+    }
+
     //Setters
     public:
-    void setBusDetails(string busType, string busMake, string busFault, string regNumber)
-    {
+    void SetBusType(string busType){
+        this->busType = busType;
+    }
+
+    void SetBusMake(string busMake){
+        this->busMake = busMake;
+    }
+
+    void SetBusFault(string busFault){
+     this->busFault = busFault;
+    }
+
+    void SetRegNumber(string regNumber){
+        this->regNumber = regNumber;
+    }
+
+    void SetBusDetails(string busType, string busMake, string busFault, string regNumber){
 
         //get bus details
         this->busType = busType;
@@ -37,8 +66,7 @@ struct BUS{
         return;
     }
     //Display bus details;
-    void displayBusDetails()
-    {
+    void DisplayBusDetails(){
         cout <<busType<<endl
         <<busMake<<endl
         <<busFault<<endl
@@ -60,8 +88,43 @@ struct BUSOWNER{
     struct BUS bus; // bus details of bus owner.
 
     /*Operation*/
+    //Getters
+    string GetName(){
+        return this->name;
+    }
+
+    string GetBillingAddres(){
+        return this->billingAddress;
+    }
+
+    string GetGender(){
+        return this->gender;
+    }
+
+    long GetContact(){
+        return this->contact;
+    }
+
+
     //Setters
-    void setBusOwnerDetails(string name, string billingAddress, string gender, int contact){
+    void SetName(string name){
+        this->name = name;
+    }
+
+    void SetBillingAddres(string billingAddress){
+        this->billingAddress = billingAddress;
+    }
+
+    void SetGender(string gender){
+     this->gender = gender;
+    }
+
+    void SetContact (long contact){
+            this->contact = contact;
+
+        }
+
+    void SetBusOwnerDetails(string name, string billingAddress, string gender, int contact){
 
         this->name = name;
         this->billingAddress = billingAddress;
@@ -69,8 +132,7 @@ struct BUSOWNER{
         this->contact = contact;
     }
 
-    void displayBusOnwerDetails()
-    {
+    void DisplayBusOnwerDetails(){
          cout <<name<<endl
           <<billingAddress<<endl<<gender<<endl
           <<contact<<endl;
@@ -82,8 +144,8 @@ struct PERSON{
     string name;
 };
 
-struct REPAIRER{
-    struct PERSON repairer;
+struct MECHANIC{
+    struct PERSON mechanic;
 };
 
 struct HELPER{
@@ -92,32 +154,7 @@ struct PERSON helper;
 
 struct INVENTORY
 {
-
-        map <float,string> parts; //a map of parts and prices.
-
-    public:
-     string requestParts(string p){
-         map<float,string>::iterator itbeg = parts.begin();
-         map<float,string>::iterator itend = parts.end();
-
-         for( ; itbeg != itend; ++itbeg)
-            {
-                if(itbeg->second == p)
-                    return itbeg->second;
-                 else
-                 {
-                     cout <<"not found"<<endl;
-                     break;
-                 }
-
-            }
-
-            //return parts.find(p)->second;
-        }
-
-      float requestPrice(float p){
-          return parts.find(p)->first;
-      }
+   map <string,float> parts; //a map of parts and prices.
 
 };
 // TODO (FAMILY PC#1#): inventory list creation
@@ -126,89 +163,113 @@ int main()
 {
     //welcome display to end user
     cout <<"*************************************"<<endl;
-    cout <<"**WELCOME TO BIG OG BUS REPAIR SHOP**"<<endl;
+    cout <<"**WELCOME TO ADUM BUS REPAIR SHOP**"<<endl;
     cout <<"*************************************"<<endl;
 
-    INVENTORY ogList;
-    ogList.parts.insert(pair<float,string>(10.2,"spanner"));
-    ogList.parts.insert(pair<float,string>(10.2,"screwdriver"));
-    ogList.parts.insert(pair<float,string>(10.2,"bolt"));
-    ogList.parts.insert(pair<float,string>(10.2,"headlights"));
-    ogList.parts.insert(pair<float,string>(10.2,"sparkplugs"));
-
-    cout << ogList.requestPrice(10);
-    cout << ogList.requestParts("bolt");
+    INVENTORY adumList; //inventory of parts
+    adumList.parts.insert(pair<string, float>("headlights", 25.3));
+    adumList.parts.insert(pair<string, float>("bolts", 15.23));
+    adumList.parts.insert(pair<string, float>("spark plugs", 30.5));
 
 
     //enter bus details
-//    string busType, busMake, busFault,regNumber; bool isFaulty;
-//    cout <<"Enter bus type:";
-//    cin >> busType;
-//    cout <<"Enter bus make:";
-//    cin >>busMake;
-//    cout <<"Enter bus fault:";
-//    cin >> busFault;
-//    cout <<"Enter registration Number:";
-//    cin >> regNumber;
-//    cout <<
-//
-//    //enter bus owner details
-//    string name,billingAddress;
-//    string gender; long contact;
-//    cout <<"Enter Bus owner name:";
-//    cin >> name;
-//    cout <<"Enter Billing Address:";
-//    cin >> billingAddress;
-//    cout <<"Enter Gender:";
-//    cin >> gender;
-//    cout <<"Enter contact number:";
-//    cin >> contact;
-//
-//        //debug bus input values
-//      /* cout <<busType<<endl
-//        <<busMake<<endl
-//        <<busFault<<endl
-//        <<regNumber<<endl;
-//
-//
-//        //debug bus owner input values
-//         cout <<name<<endl
-// *       <<billingAddress<<endl
-//         <<gender<<endl
-//        <<contact<<endl;
-//
-//      */
-//
-//    //Add new bus to the system, all buses are faulty
-//    BUS bus1; BUSOWNER busowner1;
-//    if(bus1.isNew)
-//   {
-//    bus1.setBusDetails(busType,busMake,busFault,regNumber); //get bus details
-//    busowner1.setBusOwnerDetails(name,billingAddress,gender,contact);
-//    busowner1.bus = bus1; // busowner1 came to station with bus1
-//
-//    //schedule a repair.
-//    if(bus1.isFaulty)
-//    {
-//        //repairer is assigned
-//        REPAIRER repairer1;
-//        repairer1.repairer.name = "John";
-//
-//        //Helper is assigned
-//        HELPER helper1;
-//        helper1.helper.name = "Kwame";
-//
-//
-//    }
-//    else
-//    {
-//    cout <<"Bus with details:";
-//    bus1.displayBusDetails();
-//    cout <<"Is Okay"<<endl;
-//    }
-//
-//   }
-//
+    string busType, busMake, busFault, regNumber; char isBusFaulty, isBusNew;
+    cout <<"Enter Bus Type:";
+    cin >> busType;
+    cout <<"Enter Bus Make:";
+    cin >>busMake;
+    cout <<"Enter Bus Fault:";
+    cin >> busFault;
+    cout <<"Enter Registration Number:";
+    cin >> regNumber;
+    cout <<"Is Bus New(Y/N)?:";
+    cin >> isBusNew;
+    cout <<"Is Bus Faulty(Y/N)?:";
+    cin >> isBusFaulty;
+
+
+    //enter bus owner details
+    string name,billingAddress;
+    string gender; long contact;
+    cout <<"Enter Bus owner name:";
+    cin >> name;
+    cout <<"Enter Billing Address:";
+    cin >> billingAddress;
+    cout <<"Enter Gender:";
+    cin >> gender;
+    cout <<"Enter contact number:";
+    cin >> contact;
+
+        //debug bus input values
+      /* cout <<busType<<endl
+        <<busMake<<endl
+        <<busFault<<endl
+        <<regNumber<<endl;
+
+
+        //debug bus owner input values
+         cout <<name<<endl
+ *       <<billingAddress<<endl
+         <<gender<<endl
+        <<contact<<endl;
+
+      */
+
+    //Add new bus to the system, all buses are faulty
+    if(isBusNew == 'Y')
+   {
+    BUS* bus1;
+    bus1 = new BUS; //new bus in station
+
+    BUSOWNER* busowner1;
+    busowner1 = new BUSOWNER; //new busowner in station
+
+    //read details
+    if(bus1 != nullptr && busowner1 != nullptr){
+        //set bus details
+        bus1->SetBusMake(busMake);
+        bus1->SetBusFault(busFault);
+        bus1->SetBusType(busType);
+        bus1->SetRegNumber(regNumber);
+
+        //set bus owner details
+        busowner1->SetName(name);
+        busowner1->SetGender(gender);
+        busowner1->SetContact(contact);
+        busowner1->SetBillingAddres(billingAddress);
+
+
+        //assume that a
+        busowner1->bus = *bus1;
+
+        busowner1->bus.DisplayBusDetails();
+
+    }
+    else
+        cout <<"Error"<<endl;
+
+        if(isBusFaulty == 'Y')
+        {
+            cout <<"Repair Mode"<<endl;
+            //mechanic and helper assigned to bus
+            MECHANIC mech;
+            mech.mechanic.name = "Kwame";
+
+            HELPER help;
+            help.helper.name = "John";
+
+            cout <<"\nMechanic,"<<mech.mechanic.name<<" and "<<"Helper,"
+            <<help.helper.name<<" assigned to car with registration number: "<<bus1->GetRegNumber() << endl;
+
+
+        }
+   }
+   else
+   {
+       cout <<"----"<<endl;
+   }
+
+
 
 
 
