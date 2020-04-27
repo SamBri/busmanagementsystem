@@ -1,0 +1,9 @@
+ADUM BUS REPAIR SHOP INVOICE
+Date of transaction:Mon Apr 27 04:11:09 2020
+
+Type of repair:bolts
+Parts used:bolts
+cost of parts:GHC40
+Mechanic assigned:Kwame
+Helper assigned:John
+Thank you for visting Adum Bus Repair Shop,samuel

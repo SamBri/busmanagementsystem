@@ -1,6 +1,10 @@
 # depslib dependency file v1.0
-1587893850 source:c:\users\family pc\documents\john purcell\busmanagementsystem\main.cpp
+1587963535 source:c:\users\family pc\documents\john purcell\busmanagementsystem\main.cpp
 	<iostream>
 	<string>
 	<map>
+	<stdlib.h>
+	<fstream>
+	<ctime>
+	<cstdio>
 
