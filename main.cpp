@@ -1,5 +1,5 @@
 //Author: Sam
-//Date:25th April 2020
+//Date Started:25th April 2020
 //Program: Bus management system
 
 #include <iostream>
@@ -85,7 +85,9 @@ struct BUS{
 struct BUSOWNER{
 
     /* Data Members*/
-    string name;   //name of bus owner
+    string name; //name of busowner
+    string firstName;   //first name  of bus owner
+    string lastName;    //last name of bus owner
     string billingAddress; //billing address
     string gender; //gender of bus owner
     long contact; //contact of bus owner
@@ -93,6 +95,15 @@ struct BUSOWNER{
 
     /*Operation*/
     //Getters
+    string GetFirstName()
+    {
+        return this->firstName;
+    }
+    string GetLastName()
+    {
+        return this->lastName;
+    }
+
     string GetName(){
         return this->name;
     }
@@ -111,8 +122,16 @@ struct BUSOWNER{
 
 
     //Setters
-    void SetName(string name){
-        this->name = name;
+     void SetName(string firstName, string lastName){
+        this->name = firstName+" "+lastName;
+        //clog << this->name; // name
+    }
+    void SetFirstName(string firstName){
+        this->firstName = firstName;
+    }
+
+    void SetLastName(string lastName){
+        this->lastName = lastName;
     }
 
     void SetBillingAddres(string billingAddress){
@@ -128,9 +147,9 @@ struct BUSOWNER{
 
         }
 
-    void SetBusOwnerDetails(string name, string billingAddress, string gender, int contact){
+    void SetBusOwnerDetails(string firstName, string lastName, string billingAddress, string gender, int contact){
 
-        this->name = name;
+        this->name = firstName+" "+lastName;
         this->billingAddress = billingAddress;
         this->gender = gender;
         this->contact = contact;
@@ -164,11 +183,17 @@ struct INVENTORY
     //Find part
    bool FindRequestedPart(string part){
 
+        /*
+        clog <<"Before if statement,argument->part:"<<part<<endl;
+        */
        if(parts.find(part)->first == part)
+       {
+        /*clog <<"inside if find request, clog->map parts:"<<parts.find(part)->first << endl;*/
         return true;
+       }
    }
     //Setters
-   float setRequestedPartPrice(string part, float price)
+   void setRequestedPartPrice(string part, float price)
    {
        parts.find(part)->second = price;
        cout <<"Successful"<<endl;
@@ -190,7 +215,7 @@ struct INVENTORY
 
 struct TRANSACTION
 {
-
+ //;
 
 };
 
@@ -228,18 +253,36 @@ struct INVOICE
 
 };
 
-
+/*@FIXME*/
 /* FIXME (FAMILY PC#1#04/27/20): Next Build
-1) Insert a measure of control for parts requested and bus fault detected.
-2) Make registration number accepts strings plus whitespaces
-3) Make billing address accept strings plus whitespaces
-4) Make name to accept strings plus whitespaces
+(-) (1) Insert a measure of control for parts requested and bus fault detected.
+(+) (2) Make registration number accepts strings plus whitespaces:
+(+) (3) Make billing address accept strings plus whitespaces
+(+) (4) Make name to accept strings plus whitespaces
 */
+
+/* DONE: Reference TO @FIXME(04/27/20) (FAMILY PC#1#04/28/20):
+(+)(2) Registration number accepts strings plus whitespaces
+(+)(3) Billing Address accept strings plus whitespaces
+(+)(4) Name is first name and last name for input but displays full name for receipt generation.
+*/
+
 
 /* NOTE (FAMILY PC#1#04/27/20): Refactoring
-1)  Bus owner can have more than one bus hence bus assignment to bus owner has to be dynamic
-2) Bus can have more than one faults hence faults should be in a collection or container.
+(-) (1) Bus owner can have more than one bus hence bus assignment to bus owner has to be dynamic
+(-) (2) Bus can have more than one faults hence faults should be in a collection or container.
 */
+
+/* TODO (FAMILY PC#1#04/28/20): Next Build
+VALIDATION: Using a single function() =>
+(-)(1) Reject Gender Options(male, female) not provided by system
+(-)(2) Reject an Invalid phone number
+
+LIMITS:
+(-) (1) Set Price entry limts
+
+ */
+
 
 
 //main function
@@ -251,21 +294,30 @@ int main()
     cout <<"*************************************"<<endl;
 
     INVENTORY adumList; //inventory of parts
-    adumList.parts.insert(pair<string, float>("headlights", 0));
-    adumList.parts.insert(pair<string, float>("bolts", 0));
+    adumList.parts.insert(pair<string, float>("headlight", 0));
+    adumList.parts.insert(pair<string, float>("bolt", 0));
+    adumList.parts.insert(pair<string, float>("starter", 0));
+    adumList.parts.insert(pair<string, float>("engine oil", 0));
+    adumList.parts.insert(pair<string, float>("taillight", 0));
     adumList.parts.insert(pair<string, float>("spark plugs", 0));
 
 
     //enter bus details
     string busType, busMake, busFault, regNumber; char isBusFaulty, isBusNew;
     cout <<"Enter Bus Type:";
-    cin >> busType;
+    getline(cin,busType);
+
+    //cout <<busType<< endl; //debug getline
+
     cout <<"Enter Bus Make:";
-    cin >>busMake;
+    getline(cin,busMake);
+
     cout <<"Enter Bus Fault:";
-    cin >> busFault;
-    cout <<"Enter Registration Number:";
-    cin >> regNumber;
+    getline(cin,busFault);
+
+    cout <<"Enter Bus Registration Number:";
+    getline(cin, regNumber);
+
     cout <<"Is Bus New(Y/N)?:";
     cin >> isBusNew;
     switch(isBusNew){ //check for input invalid input
@@ -295,15 +347,30 @@ int main()
 
     cout <<endl;
 
+    /* debug getline inputs
+    cerr << "busFault="<<busFault<<endl;
+    cerr <<"busMake="<<busMake << endl;
+    cerr <<"busType="<< busType <<endl;
+    */
+
+
     //enter bus owner details
-    string name,billingAddress;
+    string firstName,lastName,billingAddress;
     string gender; long contact;
-    cout <<"Enter Bus owner name:";
-    cin >> name;
+
+    cout <<"Enter First Name of bus owner:";
+    cin >> firstName;
+
+    cout <<"Enter Last Name of bus owner:";
+    cin >> lastName;
+
     cout <<"Enter Billing Address:";
-    cin >> billingAddress;
+    cin.ignore();
+    getline(cin, billingAddress);
+
     cout <<"Enter Gender:";
-    cin >> gender;
+    getline(cin,gender);
+
     cout <<"Enter contact number:";
     cin >> contact;
 
@@ -345,7 +412,7 @@ int main()
         bus1->SetRegNumber(regNumber);
 
         //set bus owner details
-        busowner1->SetName(name);
+        busowner1->SetName(firstName,lastName);
         busowner1->SetGender(gender);
         busowner1->SetContact(contact);
         busowner1->SetBillingAddres(billingAddress);
@@ -363,9 +430,9 @@ int main()
         //schedule a repair
         if(isBusFaulty != 'N')
         {
-            system("pause");
+            system("pause"); //new screen for supervisor
             //clear screen
-            system("cls");
+            system("cls"); //move to new screen for supervisor
 
             cout <<"\t\t***Repair Mode***"<<endl;
             //mechanic and helper assigned to bus
@@ -380,19 +447,28 @@ int main()
             <<help.helper.name<<endl<<"Task:"<<"assigned to "<<"bus with registration number,"<<bus1->GetRegNumber()
             << endl <<"Fault:"<<bus1->GetBusFault()<<endl;
 
+            system("pause"); //new screen for repairer
+            system("cls");  //move to new screen for repairer
+
+            cout <<"\t\t***Parts Inventory***"<<endl;
             //find parts
             cout <<"Parts Request."<<endl;
             cout <<"Search requeseted part.."<<endl;
             cout <<"Enter part:"<<endl;
             string parts;
-            cin >> parts;
+            cin.ignore(); //clear cin buffer
+            getline(cin,parts);
 
+            //debug parts for strings
+            /*
+            clog << "Before parts check, clog->parts:"<<parts<<endl;
+            */
             if(adumList.FindRequestedPart(parts))
-
             {
               cout <<"Match Found!"<<endl;
-              cout <<"Price requested part:GHC"<<flush;
+              cout <<"Price requested part:GHC";
               float price;
+              //cin.ignore();
               cin >> price;
               adumList.setRequestedPartPrice(parts,price);
 
@@ -423,7 +499,7 @@ int main()
                else{
                  outReceipt<<"ADUM BUS REPAIR SHOP INVOICE\n" <<"Date of transaction:"<<timestamp<<endl
                <<"Type of repair:"<<bus1->GetBusFault()<<endl<<"Parts used:"<<adumList.GetRequestedPart(parts)<<endl
-               <<"cost of parts:GHC"<<invoice1.CalculateInovice(adumList,quantity,parts) << endl
+               <<"Cost of parts:GHC"<<invoice1.CalculateInovice(adumList,quantity,parts) << endl
                <<"Mechanic assigned:"<<mech.mechanic.name<<endl<<"Helper assigned:"<<help.helper.name<<endl<<"Thank you for visting Adum Bus Repair Shop,"
                <<busowner1->GetName()<<endl;
 
@@ -446,11 +522,8 @@ int main()
 
                   outReceipt.close(); //close receipt file
 
-
-
-
-
-
+                  //pause a while
+                  system("pause");
             }
             else
             cout <<"Not available in inventory"<<endl;
@@ -458,6 +531,7 @@ int main()
         }
         else{
             cout <<"No Repair needed"<<"\nBus is not faulty"<<endl;
+            system("pause");
             return -1;
         }
 

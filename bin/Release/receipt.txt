@@ -1,0 +1,9 @@
+ADUM BUS REPAIR SHOP INVOICE
+Date of transaction:Tue Apr 28 18:01:44 2020
+
+Type of repair:broken headlights
+Parts used:headlight
+Cost of parts:GHC46
+Mechanic assigned:Kwame
+Helper assigned:John
+Thank you for visting Adum Bus Repair Shop,Samuel Brifo
