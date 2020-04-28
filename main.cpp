@@ -414,31 +414,38 @@ int main()
               //invoice1.SetHoursSpent(hours);
               //cout <<invoice1.CalculateInovice(adumList,quantity,parts)<<endl;
 
-              ofstream out("receipt.txt"); //create receipt
-              if(!out)
+              ofstream outReceipt("receipt.txt"); //create receipt
+              if(!outReceipt)
               {
                   cout <<"Cannot open file. \n";
                   return 1;
               }
                else{
-                 out<<"ADUM BUS REPAIR SHOP INVOICE\n" <<"Date of transaction:"<<timestamp<<endl
+                 outReceipt<<"ADUM BUS REPAIR SHOP INVOICE\n" <<"Date of transaction:"<<timestamp<<endl
                <<"Type of repair:"<<bus1->GetBusFault()<<endl<<"Parts used:"<<adumList.GetRequestedPart(parts)<<endl
                <<"cost of parts:GHC"<<invoice1.CalculateInovice(adumList,quantity,parts) << endl
                <<"Mechanic assigned:"<<mech.mechanic.name<<endl<<"Helper assigned:"<<help.helper.name<<endl<<"Thank you for visting Adum Bus Repair Shop,"
                <<busowner1->GetName()<<endl;
 
-               out.close();
+
                }
 
+                //check file status states
+            /*  cout <<"good() = " <<outReceipt.good() <<endl;
+                cout << "bad() = "<<outReceipt.bad() <<endl;
+                cout << "fail() = "<<outReceipt.fail() << endl;
+                */
+
                //check file is not in error
-              if(!out.goodbit)
+              if(!outReceipt.bad())
                 {
                     cout <<"Invoice generated successfully"<<endl;
                     delete bus1;
                     delete busowner1;
                 }
 
-                //
+                  outReceipt.close(); //close receipt file
+
 
 
 
