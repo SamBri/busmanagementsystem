@@ -9,6 +9,7 @@
 #include<fstream>
 #include <ctime>
 #include <cstdio>
+#include <algorithm>
 
 using namespace std;
 
@@ -90,7 +91,7 @@ struct BUSOWNER{
     string lastName;    //last name of bus owner
     string billingAddress; //billing address
     string gender; //gender of bus owner
-    long contact; //contact of bus owner
+    string contact; //contact of bus owner
     struct BUS bus; // bus details of bus owner.
 
     /*Operation*/
@@ -116,7 +117,7 @@ struct BUSOWNER{
         return this->gender;
     }
 
-    long GetContact(){
+    string GetContact(){
         return this->contact;
     }
 
@@ -142,12 +143,12 @@ struct BUSOWNER{
      this->gender = gender;
     }
 
-    void SetContact (long contact){
+    void SetContact (string contact){
             this->contact = contact;
 
         }
 
-    void SetBusOwnerDetails(string firstName, string lastName, string billingAddress, string gender, int contact){
+    void SetBusOwnerDetails(string firstName, string lastName, string billingAddress, string gender, string contact){
 
         this->name = firstName+" "+lastName;
         this->billingAddress = billingAddress;
@@ -275,16 +276,81 @@ struct INVOICE
 
 /* TODO (FAMILY PC#1#04/28/20): Next Build
 VALIDATION: Using a single function() =>
-(-)(1) Reject Gender Options(male, female) not provided by system
-(-)(2) Reject an Invalid phone number
+(+)(1) Reject Gender Options(male, female) not provided by system
+(+)(2) Reject an Invalid phone number
+(-)(3) Rejection of an invalid registration number
 
 LIMITS:
 (-) (1) Set Price entry limts
 
  */
 
+/* DONE Reference TO @TODO(04/28/20) (FAMILY PC#1#05/01/20):
+(+) (1) Rejection of invalid gender options implemented
+(+) (2) Rejection of invalid phone number implemented
+
+*/
+
+int ValidateGender(string&  valGender)
+{
+    //change entry to lowercase
+ transform(valGender.begin(), valGender.end(),valGender.begin(),::tolower);
+
+        if(valGender == "male")
+        valGender = "male";
+        else if(valGender == "female")
+           valGender = "female";
+          else
+          {
+             cout <<"INVALID INPUT:"<<valGender<<endl;
+             return -1;
+           }
+
+}
 
 
+
+int ValidateContact(string valContact){
+
+    /*check the contact length
+        if length is not equal to 10
+            then reject
+        else
+          continue statement
+        */
+        if(valContact.size() != 10)
+        {
+            cout <<"PHONENUMBER LENGTH IS INCORRECT"<<endl;
+            return -1;
+        }
+        else
+        {
+            /*
+        break contact into three segments
+        for the first segment
+        if the code is not equal to registered codes
+          reject
+          else
+          continue statement
+    */
+        //cout <<"successful"<<endl; confirm phone length checked.
+        if(valContact.substr(0,3) == "027");
+        else if(valContact.substr(0,3) == "020");
+        else if(valContact.substr(0,3) == "024");
+        else if (valContact.substr(0,3) == "054");
+        else if (valContact.substr(0,3) == "026");
+        else
+          {
+          cout <<"INVALID NETWORK CODE:"<<valContact.substr(0,3)<<endl;
+          return -1;
+          }
+        }
+
+    return 1;
+
+}
+
+#define ERROR -1
 //main function
 int main()
 {
@@ -356,7 +422,7 @@ int main()
 
     //enter bus owner details
     string firstName,lastName,billingAddress;
-    string gender; long contact;
+    string gender;  string contact;
 
     cout <<"Enter First Name of bus owner:";
     cin >> firstName;
@@ -370,9 +436,15 @@ int main()
 
     cout <<"Enter Gender:";
     getline(cin,gender);
+    if(ValidateGender(gender) == ERROR)
+        return 0; //check gender input.
+
 
     cout <<"Enter contact number:";
     cin >> contact;
+    if(ValidateContact(contact) == ERROR)
+        return 0; //check contact number format.
+
 
         //debug bus input values
       /* cout <<busType<<endl

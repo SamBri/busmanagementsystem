@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1588096975 source:c:\users\family pc\documents\john purcell\busmanagementsystem\main.cpp
+1588389447 source:c:\users\family pc\documents\john purcell\busmanagementsystem\main.cpp
 	<iostream>
 	<string>
 	<map>
@@ -7,4 +7,5 @@
 	<fstream>
 	<ctime>
 	<cstdio>
+	<algorithm>
 
