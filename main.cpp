@@ -10,8 +10,12 @@
 #include <ctime>
 #include <cstdio>
 #include <algorithm>
+#include <cstdlib>
 
 using namespace std;
+
+
+
 
 //bus details
 struct BUS{
@@ -254,6 +258,13 @@ struct INVOICE
 
 };
 
+
+//BUS STATION - (-) NEXT BUILD:multiple buses: Bus owner can have more than one bus hence bus assignment to bus owner has to be dynamic
+class BUSSTATION
+{
+};
+
+
 /*@FIXME*/
 /* FIXME (FAMILY PC#1#04/27/20): Next Build
 (-) (1) Insert a measure of control for parts requested and bus fault detected.
@@ -272,6 +283,7 @@ struct INVOICE
 /* NOTE (FAMILY PC#1#04/27/20): Refactoring
 (-) (1) Bus owner can have more than one bus hence bus assignment to bus owner has to be dynamic
 (-) (2) Bus can have more than one faults hence faults should be in a collection or container.
+(-) (3) @FIXME (1) Measure of control as to be consider from UI perspective - USABILITY.
 */
 
 /* TODO (FAMILY PC#1#04/28/20): Next Build
@@ -531,6 +543,18 @@ int main()
             cin.ignore(); //clear cin buffer
             getline(cin,parts);
 
+
+            /*
+                inserting a measure of control
+
+                -compare the fault detected to the parts requested
+                   if they are th same then we can proceed
+                    else there is a problem
+
+            */
+
+
+
             //debug parts for strings
             /*
             clog << "Before parts check, clog->parts:"<<parts<<endl;
@@ -562,6 +586,7 @@ int main()
               //invoice1.SetHoursSpent(hours);
               //cout <<invoice1.CalculateInovice(adumList,quantity,parts)<<endl;
 
+
               ofstream outReceipt("receipt.txt"); //create receipt
               if(!outReceipt)
               {
@@ -588,6 +613,8 @@ int main()
               if(!outReceipt.bad())
                 {
                     cout <<"Invoice generated successfully"<<endl;
+                    //open receipt
+                    system("notepad receipt.txt");
                     delete bus1;
                     delete busowner1;
                 }
