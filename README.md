@@ -1,4 +1,9 @@
 # busmanagementsystem
-Bus management system with receipt generation
-executable file found under bin/debug
-code can also be compiled by running main.cpp on any c++ IDE.
+Bus management system with receipt generation.
+
+# Locate file
+Executable file(busmanagementsystem.exe) found under bin/Debug.
+Receipt generation is automatic can be found under bin/Debug after program compilation and execution.
+Location of receipt.txt can change based on target folder selected, Debug or Release when compiling.
+Default target is Debug.
+Code can also be compiled by running main.cpp on any c++ IDE.
