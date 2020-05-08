@@ -3,7 +3,9 @@ Bus management system with receipt generation.
 
 # problem statement.doc
 green indicates successful.
+
 red indicates not clear per the current implementation.
+
 blue indicates user should attempt the questions.
 
 # Locate File
